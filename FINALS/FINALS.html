@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planify - Event Organizer</title>
+    <link rel="stylesheet" href="FINALS.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Planify</h1>
+        <p>Your Personal Event Organizer</p>
+    </div>
+
+    <div class="container">
+        <div class="login-section" id="loginSection">
+            <h2>Login to Continue</h2>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="login()">Login</button>
+        </div>
+
+    <div class="main-content" id="mainContent">
+        <div class="calendar-section">
+            <div class="calendar-header">
+            <h2 id="currentMonth">October 2025</h2>
+            <div class="calendar-nav">
+                <button onclick="previousMonth()">Previous</button>
+                <button onclick="nextMonth()">Next</button>
+            </div>
+        </div>
+    <div class="calendar-grid" id="calendarGrid"></div>
+    </div>
+    </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+<script src="FINALS.js"></script>
+</body>
+</html>
