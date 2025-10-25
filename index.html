@@ -3,51 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planify - Event Organizer</title>
-    <link rel="stylesheet" href="FINALS.css">
+    <title>Planify - Login</title>
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    <div class="header">
-        <h1>Planify</h1>
-        <p>Your Personal Event Organizer</p>
-    </div>
-
-    <div class="container">
-        <div class="content-wrapper">
-            <div class="calendar-section">
-                <div class="calendar-header">
-                    <h2 id="currentMonth">October 2025</h2>
-                    <div class="calendar-nav">
-                        <button onclick="previousMonth()">Previous</button>
-                        <button onclick="nextMonth()">Next</button>
-                    </div>
-                </div>
-                <div class="calendar-grid" id="calendarGrid"></div>
-            </div>
-            
-            <div class="event-section" id="eventsection">
-                <div class="day-events-header">
-                    <h3 id="sectiontitle">Upcoming Events</h3>
-                    <button class="back-btn" id="backbtn" onclick="backtodefault()" style="display: none;">Back</button>
-                </div>
-                
-                <div id="dayeventslist" style="display: none;"></div>
-
-                <div id="eventlistsection">
-                    <div id="eventslist"></div>
-                </div>
-
-                <div id="eventform" style="display: none;">
-                    <input type="text" id="eventtitle" placeholder="Event Title">
-                    <input type="date" id="eventdate" style="display: block;">
-                    <textarea id="eventdetails" placeholder="Event Details"></textarea>
-                    <button onclick="addevent()">Add Event</button>
-                </div>
-            </div>
+    <div class="login-container">
+        <div class="logo">
+            <h1>Planify</h1>
+            <p>Your Personal Event Organizer</p>
         </div>
+        
+        <h2>Login to Continue</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
     </div>
 
     <div class="notification" id="notification"></div>
-    <script src="FINALS.js"></script>
-</body>
+    <script src="login.js"></script>
+</body> 
 </html>
