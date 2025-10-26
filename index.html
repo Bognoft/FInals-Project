@@ -3,23 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planify - Login</title>
+    <title>Planify - Welcome</title>
     <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    <div class="login-container">
+    <div class="intro-container">
         <div class="logo">
-            <h1>Planify</h1>
+            <img src="D:\Code\HTML\image-removebg-preview.png" alt="Planify Logo" style="width: 300px; height: 300px;">
             <p>Your Personal Event Organizer</p>
         </div>
         
-        <h2>Login to Continue</h2>
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="login()">Login</button>
+        <div class="intro-content">
+            <h2>Welcome to Planify!</h2>
+            <p>Stay organized and never miss an important event again. Planify helps you manage your schedule with ease and efficiency.</p>
+            
+            <div class="features">
+                <ul>
+                    <li>Interactive calendar view</li>
+                    <li>Add and manage events effortlessly</li>
+                    <li>Track important dates and tasks</li>
+                    <li>Simple and intuitive interface</li>
+                </ul>
+            </div>
+            
+            <p>Let's get started organizing your life!</p>
+        </div>
+
+        <button class="next-btn" onclick="proceed()">Get Started</button>
     </div>
 
-    <div class="notification" id="notification"></div>
-    <script src="login.js"></script>
-</body> 
+    <script>
+        function proceed() {
+            window.location.href = 'FINALS.html';
+        }
+    </script>
+</body>
 </html>
