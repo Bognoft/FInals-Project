@@ -3,22 +3,12 @@ let year = 2025;
 let events = [];
 let selecteddate = null;
 
-function formatdate(datestr) {
-    const date = new Date(datestr + 'T00:00:00');
-    const months = ['January', 'February', 'March', 'April', 'May', 'June',
-                  'July', 'August', 'September', 'October', 'November', 'December'];
-    const month = months[date.getMonth()];
-    const day = date.getDate();
-    const year = date.getFullYear();
-    return `${month} ${day}, ${year}`;
-}
-
 function showcal() {
     const cal = document.getElementById('calendarGrid');
     cal.innerHTML = '';
 
     const months = ['January', 'February', 'March', 'April', 'May', 'June',
-                      'July', 'August', 'September', 'October', 'November', 'December'];
+                    'July', 'August', 'September', 'October', 'November', 'December'];
     document.getElementById('currentMonth').textContent = months[month] + ' ' + year;
 
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -34,8 +24,7 @@ function showcal() {
     const today = new Date();
 
     for (let i = 0; i < firstday; i++) {
-        const blank = document.createElement('div');
-        cal.appendChild(blank);
+        cal.appendChild(document.createElement('div'));
     }
 
     for (let d = 1; d <= daysinmonth; d++) {
@@ -45,21 +34,14 @@ function showcal() {
         const datestr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
         const dayevents = events.filter(e => e.date === datestr);
         
-        if (dayevents.length > 0) {
-            box.classList.add('has-event');
-        }
-
+        if (dayevents.length > 0) box.classList.add('has-event');
         if (d === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
             box.classList.add('today');
         }
 
         let content = `<div class="day-number">${d}</div>`;
         if (dayevents.length > 0) {
-            content += '<div>';
-            for (let i = 0; i < Math.min(dayevents.length, 3); i++) {
-                content += '<span class="event-dot"></span>';
-            }
-            content += '</div>';
+            content += '<div>' + '<span class="event-dot"></span>'.repeat(Math.min(dayevents.length, 3)) + '</div>';
         }
 
         box.innerHTML = content;
@@ -71,51 +53,28 @@ function showcal() {
 function addevent() {
     const title = document.getElementById('eventtitle').value;
     const details = document.getElementById('eventdetails').value;
-    
-    let date;
-    if (selecteddate) {
-        date = selecteddate;
-    } else {
-        date = document.getElementById('eventdate').value;
-    }
+    const date = selecteddate || document.getElementById('eventdate').value;
 
     if (title && date) {
-        events.push({
-            id: Date.now(),
-            title: title,
-            date: date,
-            details: details,
-            completed: false
-        });
-
+        events.push({id: Date.now(), title, date, details});
         document.getElementById('eventtitle').value = '';
         document.getElementById('eventdetails').value = '';
-        if (!selecteddate) {
-            document.getElementById('eventdate').value = '';
-        }
-
+        if (!selecteddate) document.getElementById('eventdate').value = '';
         showcal();
         displayevents();
-        saveevents();
-        
-        if (selecteddate) {
-            showdayevents(selecteddate);
-        }
+        if (selecteddate) showdayevents(selecteddate);
     }
 }
 
 function displayevents() {
     const list = document.getElementById('eventslist');
-    list.innerHTML = '';
-
     if (events.length === 0) {
         list.innerHTML = '<p style="color: #999; text-align: center; padding: 20px;">No events scheduled</p>';
         return;
     }
 
-    const sortevents = events.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-    sortevents.forEach(event => {
+    list.innerHTML = '';
+    events.sort((a, b) => new Date(a.date) - new Date(b.date)).forEach(event => {
         const item = document.createElement('div');
         item.className = 'event-item';
         item.innerHTML = `
@@ -132,12 +91,10 @@ function deleteevent(id) {
     events = events.filter(e => e.id !== id);
     showcal();
     displayevents();
-    saveevents();
 }
 
 function showdayevents(date) {
     selecteddate = date;
-    
     document.getElementById('sectiontitle').textContent = 'Events for ' + date;
     document.getElementById('backbtn').style.display = 'block';
     document.getElementById('eventdate').style.display = 'none';
@@ -158,7 +115,7 @@ function showdayevents(date) {
             item.innerHTML = `
                 <h5>${event.title}</h5>
                 ${event.details ? `<p>${event.details}</p>` : ''}
-                <button onclick="deleteeventfromday(${event.id})">Delete Event</button>
+                <button onclick="deleteevent(${event.id}); showdayevents('${date}')">Delete Event</button>
             `;
             dayeventslist.appendChild(item);
         });
@@ -177,16 +134,6 @@ function backtodefault() {
     document.getElementById('eventdetails').value = '';
 }
 
-function deleteeventfromday(id) {
-    events = events.filter(e => e.id !== id);
-    showcal();
-    displayevents();
-    saveevents();
-    if (selecteddate) {
-        showdayevents(selecteddate);
-    }
-}
-
 function previousMonth() {
     month--;
     if (month < 0) {
@@ -195,8 +142,8 @@ function previousMonth() {
     }
     showcal();
 }
-``
-function nextMonth() {``
+
+function nextMonth() {
     month++;
     if (month > 11) {
         month = 0;
@@ -205,28 +152,7 @@ function nextMonth() {``
     showcal();
 }
 
-function saveevents() {
-    const eventsdata = JSON.stringify(events);
-    document.cookie = `events=${eventsdata}; path=/; max-age=31536000`;
-}
-
-function loadevents() {
-    const cookies = document.cookie.split('; ');
-    for (let cookie of cookies) {
-        const [name, value] = cookie.split('=');
-        if (name === 'events') {
-            try {
-                events = JSON.parse(value);
-            } catch (e) {
-                events = [];
-            }
-            break;
-        }
-    }
-}
-
 window.onload = function() {
-    loadevents();
     showcal();
     displayevents();
 };

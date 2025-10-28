@@ -7,45 +7,46 @@
     <link rel="stylesheet" href="FINALS.css">
 </head>
 <body>
-    <div class="header">
+    <header class="header">
         <img src="image-removebg-preview.png" alt="Planify Logo">
         <p>Your Personal Event Organizer</p>
-    </div>
+    </header>
 
-    <div class="container">
+    <main class="container">
         <div class="content-wrapper">
-            <div class="calendar-section">
+
+            <section class="calendar-section">
                 <div class="calendar-header">
                     <h2 id="currentMonth">October 2025</h2>
-                    <div class="calendar-nav">
-                        <button onclick="previousMonth()">Previous</button>
-                        <button onclick="nextMonth()">Next</button>
-                    </div>
+                    <nav class="calendar-nav">
+                        <button type="button" onclick="previousMonth()">Previous</button>
+                        <button type="button" onclick="nextMonth()">Next</button>
+                    </nav>
                 </div>
-                <div class="calendar-grid" id="calendarGrid"></div>
-            </div>
-            
-            <div class="event-section" id="eventsection">
+                <div id="calendarGrid" class="calendar-grid"></div>
+            </section>
+
+            <aside class="event-section">
                 <div class="day-events-header">
                     <h3 id="sectiontitle">Upcoming Events</h3>
-                    <button class="back-btn" id="backbtn" onclick="backtodefault()" style="display: none;">Back</button>
+                    <button type="button" class="back-btn" id="backbtn" onclick="backtodefault()">Back</button>
                 </div>
-                
-                <div id="dayeventslist" style="display: none;"></div>
 
+                <div id="dayeventslist" class="event-list hidden"></div>
                 <div id="eventlistsection">
                     <div id="eventslist"></div>
                 </div>
 
-                <div id="eventform" style="display: none;">
-                    <input type="text" id="eventtitle" placeholder="Event Title">
-                    <input type="date" id="eventdate" style="display: block;">
+                <form id="eventform" class="hidden" onsubmit="addevent(); return false;">
+                    <input type="text" id="eventtitle" placeholder="Event Title" required>
+                    <input type="date" id="eventdate" required>
                     <textarea id="eventdetails" placeholder="Event Details"></textarea>
-                    <button onclick="addevent()">Add Event</button>
-                </div>
-            </div>
+                    <button type="submit">Add Event</button>
+                </form>
+            </aside>
+
         </div>
-    </div>
+    </main>
 
     <script src="FINALS.js"></script>
 </body>
